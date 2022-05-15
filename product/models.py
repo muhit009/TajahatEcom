@@ -4,23 +4,23 @@ from django.db import models
 # Create your models here.
 #types of mango
 TYPE_CHOICES=[
-    ('lengra','LENGRA'),
-    ('fojli','FOJLI'),
-    ('himshangar','HIMSHAGAR'),
-    ('aamruplai','AAMRUPALI'),
-    ('khirshapat','KHIRSHAPAT'),
-    ('gopalbhog','GOPALBHOG'),
-    ('kalivog','KALIVOG'),
-    ('mohonvog','MOHONVOG'),
-    ('harivanga','HARIVANGA'),
-    ('ashwina','ASHWINA'),
+    ('lengra','Lengra'),
+    ('fojli','Fojli'),
+    ('himshangar','Himshagor'),
+    ('aamruplai','Aamrupali'),
+    ('khirshapat','Khirshapat'),
+    ('gopalbhog','Gopalvog'),
+    ('kalivog','Kalivog'),
+    ('mohonvog','Mohonvog'),
+    ('harivanga','Hariavanga'),
+    ('ashwina','Ashwina'),
 ]
 #models for product
 class Product(models.Model):
 
-    Type= models.CharField(max_length=20, choices=TYPE_CHOICES, default='Lengra')
-    Quantity= models.IntegerField()
-    Price_per_kg= models.IntegerField()
-    Availability=models.BooleanField()
-    Img= models.ImageField(upload_to=None, width_field=None,max_length=100)
+    name= models.CharField(max_length=20, choices=TYPE_CHOICES, default='Lengra')
+    quantity= models.IntegerField()
+    price= models.IntegerField()
+    availability=models.BooleanField()
+    img= models.ImageField(null=True, blank=True)
 

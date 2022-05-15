@@ -15,15 +15,38 @@ class OrderView(APIView):
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
+    # def post(self, request):
+    #     order_serializer = OrderSerializer(data = request.data)
+    #     if order_serializer.is_valid():
+    #         if(int(order_serializer.validated_data.get('total_quantity')) >= 40):
+    #             order_serializer.save()
+    #             return Response({'status': 200, 'payload': order_serializer.data, 'message': "successful"})
+    #         else:
+    #             return Response({'message': "not enough order quantity"})
+    #     return Response({'status': 403, 'payload': order_serializer.data, 'message': "failed"})
+
     def post(self, request):
-        order_serializer = OrderSerializer(data = request.data)
-        if order_serializer.is_valid():
-            if(int(order_serializer.validated_data.get('total_quantity')) >= 40):
-                order_serializer.save()
-                return Response({'status': 200, 'payload': order_serializer.data, 'message': "successful"})
-            else:
-                return Response({'message': "not enough order quantity"})
-        return Response({'status': 403, 'payload': order_serializer.data, 'message': "failed"})
+        data = request.data
+        order = OrderSerializer(data = data)
+        order_item = list(data.get('order_list'))
+        #print(order_item)
+
+        flag = 0
+        if order.is_valid():
+            order.save()
+        order_obj = Order.objects.filter().order_by('-date')[0]
+        #print(order_obj.id)
+        for item in order_item:
+            item['order_id'] = order_obj
+            products = Product.objects.get(id = item['id'])
+            order_item_obj = OrderItem(order_id=order_obj, product=products, amount = item['amount'], price= item['price'])
+            order_item_obj.save()
+        
+        if flag==0:
+            return Response({'message': 'successfull', 'payload': order.data})
+        
+        return Response({'message': '403'})
+
 
 
 
