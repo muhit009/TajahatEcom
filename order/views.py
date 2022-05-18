@@ -34,12 +34,14 @@ class OrderView(APIView):
         flag = 0
         if order.is_valid():
             order.save()
-        order_obj = Order.objects.filter().order_by('-date')[0]
+        
+        order_obj = Order.objects.latest('date')
+        print(order_obj)
         #print(order_obj.id)
         for item in order_item:
             item['order_id'] = order_obj
             products = Product.objects.get(id = item['id'])
-            order_item_obj = OrderItem(order_id=order_obj, product=products, amount = item['amount'], price= item['price'])
+            order_item_obj = OrderItem(order_id=item['order_id'], product=products, amount = item['amount'], price= item['price'])
             order_item_obj.save()
         
         if flag==0:

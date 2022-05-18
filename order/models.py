@@ -8,6 +8,7 @@ from django.db import models
 from pytz import timezone
 from product.models import Product
 import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -27,7 +28,10 @@ class Order(models.Model):
     total_amount = models.IntegerField(default=20)
     total_price = models.FloatField()
     transaction_id = models.CharField(max_length=20 , null=False)
-    date = models.DateTimeField(blank=True, default = datetime.datetime.now())
+    date = models.DateTimeField(blank=True, default = timezone.now)
+
+    def __str__(self):
+        return self.name+" "+self.phone
 
 
 class OrderItem(models.Model):
@@ -36,5 +40,7 @@ class OrderItem(models.Model):
     amount = models.IntegerField(default=10)
     price = models.FloatField()    
 
+    def __str__(self):
+        return str(self.order_id.id)
     
 
