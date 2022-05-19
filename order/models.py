@@ -1,7 +1,5 @@
 from collections import _OrderedDictItemsView
 from itertools import product
-from pickle import FALSE
-from tkinter import CASCADE
 from typing import OrderedDict
 from xml.etree.ElementInclude import default_loader
 from django.db import models

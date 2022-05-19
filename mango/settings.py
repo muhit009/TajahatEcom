@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*r60*qth1orobpc#fe(d9k-@0bm0dyd9-ni-dc4$3!1-j^-j^f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -127,11 +127,10 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+STATIC_ROOT = BASE_DIR / "static"
 
 
 # Default primary key field type
@@ -139,7 +138,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    'https://tajahat.com',
 ]
