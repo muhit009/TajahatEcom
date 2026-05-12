@@ -13,9 +13,9 @@ done
 echo "==> Ollama server is ready."
 
 # Pull the model if not already cached
-if ! ollama list 2>/dev/null | grep -q "llama3.1:8b"; then
-    echo "==> Pulling llama3.1:8b (~5GB, please wait)..."
-    ollama pull llama3.1:8b
+if ! ollama list 2>/dev/null | grep -q "mistral:7b-instruct"; then
+    echo "==> Pulling mistral:7b-instruct (~4GB, please wait)..."
+    ollama pull mistral:7b-instruct
     echo "==> Model ready."
 else
     echo "==> Model already cached, skipping pull."
