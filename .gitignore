@@ -1,6 +1,44 @@
+# Environment
 .env
+.env.local
+.env.*.local
+
+# Python
 *.pyc
+*.pyo
+*.pyd
 __pycache__/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Django
 db.sqlite3
 staticfiles/
+media/
+
+# AI / ML — model caches (large, not needed in repo)
+.cache/
+*.bin
+*.pt
+*.safetensors
+
+# Docker
+.dockerignore
+
+# OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
