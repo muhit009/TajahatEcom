@@ -1,12 +1,6 @@
-from collections import _OrderedDictItemsView
-from itertools import product
-from typing import OrderedDict
-from xml.etree.ElementInclude import default_loader
 from django.db import models
-from pytz import timezone
-from product.models import Product
-import datetime
 from django.utils import timezone
+from product.models import Product
 
 # Create your models here.
 
