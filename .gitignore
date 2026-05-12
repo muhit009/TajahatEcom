@@ -30,8 +30,10 @@ media/
 *.pt
 *.safetensors
 
-# Docker
-.dockerignore
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/.env
 
 # OS
 .DS_Store

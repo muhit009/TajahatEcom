@@ -1,21 +1,40 @@
 services:
-  web:
-    build: .
-    container_name: tajahat-web
+
+  # ── 1. Django REST API ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tajahat-backend
+    expose:
+      - "8000"
     ports:
-      - "8000:8000"
-    env_file:
-      - .env
+      - "8000:8000"   # also exposed to host for direct API testing / Postman
+    env_file: .env
     environment:
       OLLAMA_BASE_URL: http://ollama:11434
     volumes:
       - ./db.sqlite3:/app/db.sqlite3
       - static_images:/app/static/images
+      - hf_cache:/root/.cache/huggingface   # cache sentence-transformers model
     depends_on:
       ollama:
         condition: service_healthy
     restart: unless-stopped
 
+  # ── 2. React + nginx ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tajahat-frontend
+    ports:
+      - "80:80"       # main entry point for the browser
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ── 3. Ollama (local LLM on RTX 3060 Ti) ───────────────────────────────────
   ollama:
     image: ollama/ollama:latest
     container_name: tajahat-ollama
@@ -41,5 +60,6 @@ services:
     restart: unless-stopped
 
 volumes:
-  ollama_data:
-  static_images:
+  ollama_data:      # Ollama model weights (~5GB for llama3.1:8b)
+  static_images:    # uploaded product images
+  hf_cache:         # sentence-transformers model cache (~80MB)
